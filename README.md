@@ -1,5 +1,5 @@
 Coverage: 34%
-# Project Title
+# 22JuneEnable4 - IMS Project
 
 One Paragraph of project description goes here
 
@@ -75,6 +75,7 @@ We use [SemVer](http://semver.org/) for versioning.
 ## Authors
 
 * **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/christophperrins)
+* **Dejan McCreery** - *Body of Programme*
 
 ## License
 
@@ -84,6 +85,6 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
+* Individuals at [QACTrainers](https://github.com/QACTrainers/IMS-Starter) who wrote the template
 * Inspiration
 * etc
