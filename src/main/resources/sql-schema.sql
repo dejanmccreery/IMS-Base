@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS `orders`(
 	`order_id` INT AUTO_INCREMENT NOT NULL,
     `customer_id` INT NOT NULL,
     `order_date` DATE NOT NULL,
+    `order_value` DECIMAL(6,2) NOT NULL,
     PRIMARY KEY(`order_id`)
 );
 

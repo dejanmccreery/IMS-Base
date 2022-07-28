@@ -38,11 +38,11 @@ public class Item {
 
     @Override
     public String toString() {
-        return "id:" + this.id + " item name:" + this.name + " value:" + this.value;
+        return "ID: " + this.id + " item name: " + this.name + " value: " + this.value;
     }
 
-    public String repr() { return "id: " + this.id +
-                           "| item name: " + this.name + "| value: " + this.value; }
+    public String repr() { return "ID: " + this.id +
+                           "| Item name: " + this.name + "| Value: " + this.value; }
 
     @Override
     public int hashCode() {
