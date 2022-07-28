@@ -2,7 +2,7 @@ package com.qa.ims.persistence.domain;
 
 import jdk.vm.ci.meta.Local;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,28 +10,32 @@ public class Order {
 
     private Long id;
     private Long customerID;
-    private LocalDate date;
+    private Date date;
     private Double value;
-    private ArrayList<Long> items;
-    private Integer quantity;
+    private ArrayList<OrderItem> items;
 
-    public Order(Long customerID, LocalDate date) {
+
+    public Order(Long customerID, Date date) {
         this.customerID = customerID;
         this.date = date;
     }
 
-    public Order(Long id, Long customerID, LocalDate date) {
+    public Order(Long id, Long customerID, Date date) {
         this.id = id;
         this.customerID = customerID;
         this.value = value;
         this.date = date;
     }
 
-    public Order(Long id, Long customerID, Double value, LocalDate date) {
+    public Order(Long id, Long customerID, Double value, Date date) {
         this.id = id;
         this.customerID = customerID;
         this.value = value;
         this.date = date;
+    }
+
+    public void addOrderItem(OrderItem oi){
+        items.add(oi);
     }
 
     public void calculateValue(){
@@ -54,12 +58,20 @@ public class Order {
         this.customerID = customerID;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
+    }
+
+    public ArrayList<OrderItem> getItems() {
+        return items;
+    }
+
+    public void setItems(ArrayList<OrderItem> items) {
+        this.items = items;
     }
 
     public Double getValue() {
