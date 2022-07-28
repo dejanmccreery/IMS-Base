@@ -70,13 +70,13 @@ public class CustomerController implements CrudController<Customer> {
 	}
 
 	/**
-	 * Deletes an existing customer by the id of the customer
+	 * Deletes an existing customer using the id of the customer
 	 * 
 	 * @return
 	 */
 	@Override
 	public int delete() {
-		LOGGER.info("Please enter the id of the customer you would like to delete");
+		LOGGER.info("Please enter the ID of the customer you would like to delete: ");
 		Long id = utils.getLong();
 		return customerDAO.delete(id);
 	}

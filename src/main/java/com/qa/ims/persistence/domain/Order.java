@@ -17,6 +17,13 @@ public class Order {
         this.value = value;
     }
 
+    public Order(Long id, Long customerID, Double value, LocalDate date) {
+        this.id = id;
+        this.customerID = customerID;
+        this.value = value;
+        this.date = date;
+    }
+
     public Long getID() {
         return id;
     }
