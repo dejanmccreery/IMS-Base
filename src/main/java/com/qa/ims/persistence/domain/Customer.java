@@ -7,21 +7,21 @@ public class Customer {
 	private String surname;
 
 	public Customer(String firstName, String surname) {
-		this.setFirstName(firstName);
-		this.setSurname(surname);
+		this.firstName = firstName;
+		this.surname = surname;
 	}
 
 	public Customer(Long id, String firstName, String surname) {
-		this.setId(id);
-		this.setFirstName(firstName);
-		this.setSurname(surname);
+		this.id = id;
+		this.firstName = firstName;
+		this.surname = surname;
 	}
 
-	public Long getId() {
+	public Long getID() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setID(Long id) {
 		this.id = id;
 	}
 
@@ -45,6 +45,8 @@ public class Customer {
 	public String toString() {
 		return "id:" + id + " first name:" + firstName + " surname:" + surname;
 	}
+
+	public String repr() { return "id: " + id + "| first name: " + firstName + "| surname: " + surname; }
 
 	@Override
 	public int hashCode() {
