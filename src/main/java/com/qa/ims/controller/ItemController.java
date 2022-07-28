@@ -49,7 +49,7 @@ public class ItemController implements CrudController<Item> {
         Double itemValue = utils.getDouble();
         // enter address once everything is working
         Item item = itemDAO.create(new Item(itemName, itemValue));
-        LOGGER.info("Item created: ");
+        LOGGER.info("Item created.");
         return item;
     }
 
