@@ -13,6 +13,7 @@ public class Order {
     private LocalDate date;
     private Double value;
     private ArrayList<Long> items;
+    private Integer quantity;
 
     public Order(Long customerID, LocalDate date) {
         this.customerID = customerID;
