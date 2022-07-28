@@ -133,7 +133,7 @@ public class ItemDAO implements Dao<Item> {
      * @param id - id of the item
      */
     @Override
-    public int delete(long id) {
+    public int delete(Long id) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement("DELETE FROM item WHERE id = ?");
              ) {
