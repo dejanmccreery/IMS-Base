@@ -3,6 +3,8 @@ package com.qa.ims.persistence.domain;
 import jdk.vm.ci.meta.Local;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Order {
 
@@ -10,11 +12,18 @@ public class Order {
     private Long customerID;
     private LocalDate date;
     private Double value;
+    private ArrayList<Long> items;
 
-    public Order(Long id, Long customerID, Double value) {
+    public Order(Long customerID, LocalDate date) {
+        this.customerID = customerID;
+        this.date = date;
+    }
+
+    public Order(Long id, Long customerID, LocalDate date) {
         this.id = id;
         this.customerID = customerID;
         this.value = value;
+        this.date = date;
     }
 
     public Order(Long id, Long customerID, Double value, LocalDate date) {
@@ -22,6 +31,10 @@ public class Order {
         this.customerID = customerID;
         this.value = value;
         this.date = date;
+    }
+
+    public void calculateValue(){
+
     }
 
     public Long getID() {
