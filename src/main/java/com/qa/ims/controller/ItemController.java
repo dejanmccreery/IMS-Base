@@ -3,6 +3,7 @@ package com.qa.ims.controller;
 import java.util.List;
 
 import com.qa.ims.persistence.dao.ItemDAO;
+import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Item;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -60,6 +61,9 @@ public class ItemController implements CrudController<Item> {
     public Item update() {
         LOGGER.info("Please enter the ID of the item you'd like to update: ");
         Long id = utils.getLong();
+
+        if (!checkID(id)) return null;
+
         LOGGER.info("Please enter an item name: ");
         String name = utils.getString();
         LOGGER.info("Please enter the value of the item: ");
@@ -78,7 +82,20 @@ public class ItemController implements CrudController<Item> {
     public int delete() {
         LOGGER.info("Please enter the ID of the item you would like to delete: ");
         Long id = utils.getLong();
+
+        if (!checkID(id)) return 0;
+
+        LOGGER.info("Item successfully deleted.");
         return itemDAO.delete(id);
+    }
+
+    private boolean checkID(Long id) {
+        List<Item> items = itemDAO.readAll();
+        if (!items.contains(id)) {
+            LOGGER.info("Item does not exist");
+            return false;
+        }
+        return true;
     }
 
 }
