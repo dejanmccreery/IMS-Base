@@ -1,70 +1,53 @@
-Coverage: 34%
+Coverage: 11%
 
 # IMS Project
 
 This is an inventory management system that offers CRUD functionality for 3 entities within the system - Customers, Orders, and the Items within these orders.
 It is a CLI app. Individuals can also use the app to add and delete items from orders.
+[Jira](https://d-mac.atlassian.net/jira/software/projects/SCFPS/boards/3/roadmap) was used as project management software for this project.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+If you wish to develop the software, fork into your own Git Repository and work from there.
+If you wish to run the app, download the code .zip file and open in a new folder.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+You will need an IDE, preferably VSCode, IntelliJ, or Eclipse.
+VSCode can be downloaded [here](https://code.visualstudio.com/download).
+Eclipse can be downloaded [here](https://www.eclipse.org/downloads/).
+IntelliJ can be downloaded [here](https://www.jetbrains.com/idea/download/#section=mac).
+I recommend using the Community version of IntelliJ.
 
-```
-Give examples
-```
+You will also need Maven installed. The pom.xml file provided should have adequate dependencies.
+Should you want more, visit [Maven Repository](https://mvnrepository.com).
+
+VSCode has a plugin for Maven [here](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-maven).
+A helpful tutorial for the installation and integration of Maven into Eclipse can be found [here](https://www.vogella.com/tutorials/EclipseMaven/article.html).
+
+IntelliJ has Maven pre-installed. 
+When creating a new project simply select Maven as the build tool you'd like to use.
+
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+Download the zip from this repo.
 
 ## Running the tests
 
-Explain how to run the automated tests for this system. Break down into which tests and what they do
+Automated tests have not been implemented across this programme due to time constraints and crunch fatigue.
 
 ### Unit Tests 
 
-Explain what these tests test, why and how to run them
-
-```
-Give an example
-```
+Integration testing has not been implemented across this programme due to time constraints and crunch fatigue.
 
 ### Integration Tests 
-Explain what these tests test, why and how to run them
 
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+Integration testing has not been implemented across this programme due to time constraints and crunch fatigue.
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+On a live system simply run the executable file by calling in your console. Mac may require a port before running.
 
 ## Built With
 
@@ -88,7 +71,9 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-
-* The folks at [QACTrainers](https://github.com/QACTrainers) who wrote the IMS-Starter class this app is based on
-* Inspiration
-* etc
+* The folks at [QACTrainers](https://github.com/QACTrainers) who wrote the IMS-Starter class this app is based on.
+* StackOverflow for helping me and sending me down unimaginably useless rabbit holes (I learnt a lot though).
+* Morgan Walsh at QAC for teaching us and pushing through the heat. 
+* And for just being an all around great guy.
+* Andy Gray for taking us through the basics.
+* Christopher Yiangou for coming in clutch when Morgan had emergencies/was ill.

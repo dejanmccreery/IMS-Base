@@ -1,5 +1,7 @@
 package com.qa.ims.persistence.domain;
 
+import com.qa.ims.persistence.dao.OrderItemDAO;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,7 +52,8 @@ public class Order {
 
 
 
-    public void calculateValue(){
+    public void calculateValue(Long orderID){
+        OrderItemDAO oid = new OrderItemDAO();
 
     }
 

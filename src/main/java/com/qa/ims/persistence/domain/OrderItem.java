@@ -12,6 +12,8 @@ public class OrderItem {
     private Long itemID;
     private Integer quantity;
 
+    private double value;
+
 
     public OrderItem(Long orderID, Long itemID){
         this.orderID = orderID;
@@ -22,6 +24,22 @@ public class OrderItem {
         this.itemID = itemID;
         this.quantity = quantity;
     }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public OrderItem(Long orderID, Long itemID, Integer quantity, double value){
+        this.orderID = orderID;
+        this.itemID = itemID;
+        this.quantity = quantity;
+        this.value = value;
+    }
+
 
     public Map<Long, Integer> getItemIdQuantities() {
         return itemIdQuantities;

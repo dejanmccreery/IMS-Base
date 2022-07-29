@@ -69,6 +69,31 @@ public class OrderItemDAO {
         return null;
     }
 
+    public List<OrderItem> readForCalculation(Long id) {
+        try (Connection connection = DBUtils.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT o.order_id, i.item_id, o.quantity, i.item_value FROM order_item o\n" +
+                             "LEFT JOIN (\n" +
+                             "\tSELECT item_id, item_value\n" +
+                             "    FROM item\n" +
+                             ") AS i\n" +
+                             "ON o.item_id = i.item_id;");
+        ) {
+            statement.setLong(1, id);
+            try (ResultSet resultSet = statement.executeQuery();) {
+                List<OrderItem> orderItems = new ArrayList<>();
+                while (resultSet.next()) {
+                    orderItems.add(modelFromResultSet(resultSet));
+                }
+                return orderItems;
+            }
+        } catch (Exception e) {
+            LOGGER.debug(e);
+            LOGGER.error(e.getMessage());
+        }
+        return null;
+    }
+
 
     /**
      * Deletes an item in the database
