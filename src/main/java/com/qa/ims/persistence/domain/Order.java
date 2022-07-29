@@ -1,7 +1,5 @@
 package com.qa.ims.persistence.domain;
 
-import jdk.vm.ci.meta.Local;
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +10,7 @@ public class Order {
     private Long customerID;
     private Date date;
     private Double value;
-    private ArrayList<OrderItem> items;
+    private ArrayList<OrderItem> items = new ArrayList<>();
 
 
     public Order(Long customerID, Date date) {
@@ -36,6 +34,16 @@ public class Order {
 
     public void addOrderItem(OrderItem oi){
         items.add(oi);
+    }
+
+    public void removeOrderItem(Long orderID, Long itemID) {
+
+        for (OrderItem oi : items) {
+            if (orderID.equals(oi.getOrderID()) && itemID.equals(oi.getItemID())){
+                items.remove(oi);
+            }
+        }
+
     }
 
     public void calculateValue(){
@@ -84,13 +92,10 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order ID: " + this.id + " Customer ID: " + this.customerID
-                + " Value:" + this.value + " Order Date: " + this.date;
+        return "Order ID: " + this.id +
+                " | Customer ID: " + this.customerID + " | Value: " + this.value +
+                " | Order Date: " + this.date;
     }
-
-    public String repr() { return "Order ID: " + this.id +
-            "| Customer ID: " + this.customerID + "| Value: " + this.value +
-            "| Order Date: " + this.date; }
 
     @Override
     public int hashCode() {
