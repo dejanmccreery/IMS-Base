@@ -8,8 +8,9 @@ import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.utils.DBUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 public class CustomerDAOTest {
 
@@ -53,7 +54,7 @@ public class CustomerDAOTest {
 
 	@Test
 	public void testRead() {
-		final long ID = 1L;
+		final Long ID = 1L;
 		assertEquals(new Customer(ID, "jordan", "harrison"), DAO.read(ID));
 	}
 
@@ -66,6 +67,6 @@ public class CustomerDAOTest {
 
 	@Test
 	public void testDelete() {
-		assertEquals(1, DAO.delete(1));
+		assertEquals(1L, DAO.delete(1L));
 	}
 }

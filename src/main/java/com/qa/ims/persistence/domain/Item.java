@@ -6,6 +6,11 @@ public class Item {
     private String name;
     private Double value;
 
+    public Item(String name, Double value) {
+        this.name = name;
+        this.value = value;
+    }
+
     public Item(Long id, String name, Double value) {
         this.id = id;
         this.name = name;
@@ -38,11 +43,9 @@ public class Item {
 
     @Override
     public String toString() {
-        return "id:" + this.id + " item name:" + this.name + " value:" + this.value;
+        return "ID: " + this.id +
+                " | Item name: " + this.name + " | Value: " + this.value;
     }
-
-    public String repr() { return "id: " + this.id +
-                           "| item name: " + this.name + "| value: " + this.value; }
 
     @Override
     public int hashCode() {
@@ -68,15 +71,15 @@ public class Item {
                 return false;
         } else if (!getName().equals(other.getName()))
             return false;
-        if (id == null) {
-            if (other.id != null)
+        if (getID() == null) {
+            if (other.getID() != null)
                 return false;
-        } else if (!id.equals(other.id))
+        } else if (!getID().equals(other.getID()))
             return false;
-        if (value == null) {
-            if (other.value != null)
+        if (getValue() == null) {
+            if (other.getValue() != null)
                 return false;
-        } else if (!value.equals(other.value))
+        } else if (!getValue().equals(other.getValue()))
             return false;
         return true;
     }
