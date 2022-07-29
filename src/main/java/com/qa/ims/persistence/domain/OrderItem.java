@@ -89,10 +89,10 @@ public class OrderItem {
                 return false;
         } else if (!getItemID().equals(other.getItemID()))
             return false;
-        if (quantity == null) {
-            if (other.quantity != null)
+        if (getQuantity() == null) {
+            if (other.getQuantity() != null)
                 return false;
-        } else if (!quantity.equals(other.quantity))
+        } else if (!getQuantity().equals(other.getQuantity()))
             return false;
         return true;
     }

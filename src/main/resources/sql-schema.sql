@@ -31,8 +31,8 @@ CREATE TABLE IF NOT EXISTS `order_item`(
     `item_id` INT NOT NULL,
     `quantity` INT NOT NULL,
     PRIMARY KEY(`order_id`, `item_id`),
-    FOREIGN KEY(`order_id`) REFERENCES orders(`order_id`),
-    FOREIGN KEY(`item_id`) REFERENCES item(`item_id`)
+    FOREIGN KEY(`order_id`) REFERENCES orders(`order_id`) ON DELETE CASCADE,
+    FOREIGN KEY(`item_id`) REFERENCES item(`item_id`) ON DELETE CASCADE
 );
 
 SHOW tables IN `ims`; --show tables if developer prefers to query rather than use sidebar

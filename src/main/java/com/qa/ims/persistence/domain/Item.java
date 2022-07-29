@@ -71,15 +71,15 @@ public class Item {
                 return false;
         } else if (!getName().equals(other.getName()))
             return false;
-        if (id == null) {
-            if (other.id != null)
+        if (getID() == null) {
+            if (other.getID() != null)
                 return false;
-        } else if (!id.equals(other.id))
+        } else if (!getID().equals(other.getID()))
             return false;
-        if (value == null) {
-            if (other.value != null)
+        if (getValue() == null) {
+            if (other.getValue() != null)
                 return false;
-        } else if (!value.equals(other.value))
+        } else if (!getValue().equals(other.getValue()))
             return false;
         return true;
     }

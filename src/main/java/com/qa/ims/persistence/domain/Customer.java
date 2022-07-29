@@ -70,15 +70,15 @@ public class Customer {
 				return false;
 		} else if (!getFirstName().equals(other.getFirstName()))
 			return false;
-		if (id == null) {
-			if (other.id != null)
+		if (getID() == null) {
+			if (other.getID() != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!getID().equals(other.getID()))
 			return false;
-		if (surname == null) {
-			if (other.surname != null)
+		if (getSurname() == null) {
+			if (other.getSurname() != null)
 				return false;
-		} else if (!surname.equals(other.surname))
+		} else if (!getSurname().equals(other.getSurname()))
 			return false;
 		return true;
 	}

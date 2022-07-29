@@ -57,7 +57,7 @@ public class CustomerController implements CrudController<Customer> {
 	 */
 	@Override
 	public Customer update() {
-		LOGGER.info("Please enter the id of the customer you would like to update: ");
+		LOGGER.info("Please enter the ID of the customer you would like to update: ");
 		Long id = utils.getLong();
 
 		if (!checkID(id)) return null;
