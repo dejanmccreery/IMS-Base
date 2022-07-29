@@ -1,11 +1,12 @@
 package com.qa.ims.persistence.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Item;
+import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.persistence.domain.OrderItem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,6 +17,13 @@ public class OrderItemDAO {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
+    public OrderItem modelFromResultSet(ResultSet resultSet) throws SQLException {
+        Long orderID = resultSet.getLong("order_id");
+        Long itemID = resultSet.getLong("item_id");
+        Integer quantity  = resultSet.getInt("quantity");
+
+        return new OrderItem(orderID, itemID, quantity);
+    }
 
     /**
      * Adds an item to the order_item table
@@ -31,13 +39,36 @@ public class OrderItemDAO {
             statement.setLong(2, orderItem.getItemID());
             statement.setInt(3, orderItem.getQuantity());
             statement.executeUpdate();
+            LOGGER.info("Item successfully added.");
             return orderItem;
+        } catch (Exception e) {
+            LOGGER.debug(e);
+            LOGGER.error(e.getMessage());
+            LOGGER.info("Attempt Failed.");
+        }
+        return null;
+    }
+
+    public List<OrderItem> read(Long id) {
+        try (Connection connection = DBUtils.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT * FROM order_item WHERE order_id = ?");
+        ) {
+            statement.setLong(1, id);
+            try (ResultSet resultSet = statement.executeQuery();) {
+                List<OrderItem> orderItems = new ArrayList<>();
+                while (resultSet.next()) {
+                    orderItems.add(modelFromResultSet(resultSet));
+                }
+                return orderItems;
+            }
         } catch (Exception e) {
             LOGGER.debug(e);
             LOGGER.error(e.getMessage());
         }
         return null;
     }
+
 
     /**
      * Deletes an item in the database

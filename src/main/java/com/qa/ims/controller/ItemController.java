@@ -91,12 +91,14 @@ public class ItemController implements CrudController<Item> {
 
     private boolean checkID(Long id) {
         List<Item> items = itemDAO.readAll();
-        if (!items.contains(id)) {
+        int count = 0;
+        for (Item item : items) {
+            if (item.getID() == id) count++;
+        }
+        if (count == 0) {
             LOGGER.info("Item does not exist");
             return false;
-        }
-        return true;
+        } else return true;
     }
-
 }
 

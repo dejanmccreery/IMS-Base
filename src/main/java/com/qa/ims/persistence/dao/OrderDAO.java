@@ -39,11 +39,11 @@ public class OrderDAO implements Dao<Order> {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT * FROM orders");) {
-            List<Order> items = new ArrayList<>();
+            List<Order> orders = new ArrayList<>();
             while (resultSet.next()) {
-                items.add(modelFromResultSet(resultSet));
+                orders.add(modelFromResultSet(resultSet));
             }
-            return items;
+            return orders;
         } catch (SQLException e) {
             LOGGER.debug(e);
             LOGGER.error(e.getMessage());
@@ -127,10 +127,12 @@ public class OrderDAO implements Dao<Order> {
                      "DELETE FROM orders WHERE order_id = ?");
         ) {
             statement.setLong(1, id);
+
             return statement.executeUpdate();
         } catch (Exception e) {
             LOGGER.debug(e);
             LOGGER.error(e.getMessage());
+            LOGGER.info("Attempt failed.");
         }
         return 0;
     }

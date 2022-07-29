@@ -1,7 +1,6 @@
 package com.qa.ims.controller;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -113,40 +112,6 @@ public class OrderController implements CrudController<Order> {
     }
 
     /**
-     * Adds item to an order.
-     * @return
-     */
-    private void addItem(Long orderID, OrderItemDAO orderItemDAO, Order order) {
-        LOGGER.info("Please enter the ID of the item you'd like to add: ");
-        Long itemID = utils.getLong();
-
-        if (!checkItemID(itemID, order)) return;
-
-        LOGGER.info("Item ID: " + itemID + "| How many units of this item are in the order?");
-        Integer quantity = utils.getInteger();
-
-        OrderItem oi = new OrderItem(orderID, itemID, quantity);
-        orderItemDAO.addItem(oi);
-        order.addOrderItem(oi);
-        LOGGER.info("Item successfully updated.");
-    }
-
-    /**
-     * Deletes item from an order.
-     * @return
-     */
-    private void deleteItem(Long orderID, OrderItemDAO orderItemDAO, Order order) {
-        LOGGER.info("Please enter the ID of the item you would like to delete: ");
-        Long itemID = utils.getLong();
-
-        if (!checkItemID(itemID, order)) return;
-
-        orderItemDAO.deleteItem(orderID, itemID);
-        order.removeOrderItem(orderID, itemID);
-        LOGGER.info("Item successfully deleted.");
-    }
-
-    /**
      * Deletes an existing order using the id of the order
      *
      * @return
@@ -160,6 +125,36 @@ public class OrderController implements CrudController<Order> {
 
         return orderDAO.delete(id);
     }
+
+    private void addItem(Long orderID, OrderItemDAO orderItemDAO, Order order) {
+        LOGGER.info("Please enter the ID of the item you'd like to add: ");
+        Long itemID = utils.getLong();
+
+        if (!checkItemID(itemID)) return;
+
+        LOGGER.info("Item ID: " + itemID + "| How many units of this item are in the order?");
+        Integer quantity = utils.getInteger();
+
+        OrderItem oi = new OrderItem(orderID, itemID, quantity);
+        orderItemDAO.addItem(oi);
+        order.addOrderItem(oi);
+    }
+
+    /**
+     * Deletes item from an order.
+     * @return
+     */
+    private void deleteItem(Long orderID, OrderItemDAO orderItemDAO, Order order) {
+        LOGGER.info("Please enter the ID of the item you would like to delete: ");
+        Long itemID = utils.getLong();
+
+        if (!checkItemInOrder(itemID, orderItemDAO)) return;
+
+        orderItemDAO.deleteItem(orderID, itemID);
+        order.removeOrderItem(orderID, itemID);
+        LOGGER.info("Item successfully deleted.");
+    }
+
 
     private <K, V> Map<K, V> zipToMap(List<K> keys, List<V> values) {
         return IntStream.range(0, keys.size()).boxed()
@@ -193,30 +188,68 @@ public class OrderController implements CrudController<Order> {
     }
 
     private boolean checkOrderID(Long id) {
-        List<Order> orderList = orderDAO.readAll();
-        if (!orderList.contains(id)) {
+        List<Order> orders = orderDAO.readAll();
+        int count = 0;
+        for (Order order : orders){
+            if (order.getID() == id) count++;
+        }
+        if (count == 0) {
             LOGGER.info("Order does not exist");
             return false;
-        }
-        return true;
+        } else return true;
     }
 
     private boolean checkCustomerID(Long id) {
         CustomerDAO cd = new CustomerDAO();
         List<Customer> customers = cd.readAll();
-        if (!customers.contains(id)) {
+        int count = 0;
+        for (Customer customer : customers){
+            if (customer.getID() == id) count++;
+
+        }
+        if (count == 0) {
             LOGGER.info("Customer does not exist");
             return false;
-        }
-        return true;
+        } else return true;
     }
 
-    private boolean checkItemID(Long id, Order order) {
-        if (!order.getItems().contains(id)) {
-            LOGGER.info("Item is not in order");
-            return false;
+    /**
+     * Checks if item exists in item table
+     * @param id
+     * @return
+     */
+    private boolean checkItemID(Long id) {
+        ItemDAO itemDAO = new ItemDAO();
+        List<Item> items = itemDAO.readAll();
+        int count = 0;
+        for (Item item : items) {
+            if (item.getID() == id) count++;
         }
-        return true;
+        if (count == 0) {
+            LOGGER.info("Item does not exist");
+            return false;
+        } else return true;
+    }
+
+    /**
+     * Checks if item is in the order
+     * @param id
+     * @param oid
+     * @return
+     */
+    private boolean checkItemInOrder(Long id, OrderItemDAO oid) {
+
+        List<OrderItem> oi = oid.read(id);
+
+
+        int count = 0;
+        for (OrderItem item : oi) {
+            if (item.getItemID() == id) count++;
+        }
+        if (count == 0) {
+            LOGGER.info("Item not currently in order");
+            return false;
+        } else return true;
     }
 
 }

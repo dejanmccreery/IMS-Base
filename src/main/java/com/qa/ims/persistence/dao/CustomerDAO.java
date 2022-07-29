@@ -142,6 +142,7 @@ public class CustomerDAO implements Dao<Customer> {
 							"DELETE FROM customer WHERE customer_id = ?");
 			) {
 			statement.setLong(1, id);
+			LOGGER.info("Customer successfully deleted");
 			return statement.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.debug(e);

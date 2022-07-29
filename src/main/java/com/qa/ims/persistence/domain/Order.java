@@ -2,7 +2,9 @@ package com.qa.ims.persistence.domain;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Order {
 
@@ -10,6 +12,7 @@ public class Order {
     private Long customerID;
     private Date date;
     private Double value;
+    private Map<Long, Integer> itemMap = new HashMap<>();
     private ArrayList<OrderItem> items = new ArrayList<>();
 
 
@@ -33,11 +36,10 @@ public class Order {
     }
 
     public void addOrderItem(OrderItem oi){
-        items.add(oi);
+        this.items.add(oi);
     }
 
     public void removeOrderItem(Long orderID, Long itemID) {
-
         for (OrderItem oi : items) {
             if (orderID.equals(oi.getOrderID()) && itemID.equals(oi.getItemID())){
                 items.remove(oi);
@@ -45,6 +47,8 @@ public class Order {
         }
 
     }
+
+
 
     public void calculateValue(){
 
@@ -82,6 +86,14 @@ public class Order {
         this.items = items;
     }
 
+    public Map<Long, Integer> getItemMap() {
+        return itemMap;
+    }
+
+    public void setItemMap(Map<Long, Integer> items) {
+        this.itemMap = itemMap;
+    }
+
     public Double getValue() {
         return value;
     }
@@ -93,7 +105,8 @@ public class Order {
     @Override
     public String toString() {
         return "Order ID: " + this.id +
-                " | Customer ID: " + this.customerID + " | Value: " + this.value +
+                " | Customer ID: " + this.customerID +
+                " | Value: " + this.value +
                 " | Order Date: " + this.date;
     }
 

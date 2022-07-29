@@ -84,17 +84,19 @@ public class CustomerController implements CrudController<Customer> {
 
 		if (!checkID(id)) return 0;
 
-		LOGGER.info("Customer successfully deleted");
 		return customerDAO.delete(id);
 	}
 
 	private boolean checkID(Long id) {
 		List<Customer> customers = customerDAO.readAll();
-		if (!customers.contains(id)) {
+		int count = 0;
+		for (Customer customer : customers){
+			if (customer.getID() == id) count++;
+		}
+		if (count == 0) {
 			LOGGER.info("Customer does not exist");
 			return false;
-		}
-		return true;
+		} else return true;
 	}
 
 }
