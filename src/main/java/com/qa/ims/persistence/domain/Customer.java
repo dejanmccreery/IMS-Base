@@ -7,21 +7,21 @@ public class Customer {
 	private String surname;
 
 	public Customer(String firstName, String surname) {
-		this.setFirstName(firstName);
-		this.setSurname(surname);
+		this.firstName = firstName;
+		this.surname = surname;
 	}
 
 	public Customer(Long id, String firstName, String surname) {
-		this.setId(id);
-		this.setFirstName(firstName);
-		this.setSurname(surname);
+		this.id = id;
+		this.firstName = firstName;
+		this.surname = surname;
 	}
 
-	public Long getId() {
+	public Long getID() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setID(Long id) {
 		this.id = id;
 	}
 
@@ -43,7 +43,7 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "id:" + id + " first name:" + firstName + " surname:" + surname;
+		return "ID: " + id + " | First Name: " + firstName + " | Surname: " + surname;
 	}
 
 	@Override
@@ -70,15 +70,15 @@ public class Customer {
 				return false;
 		} else if (!getFirstName().equals(other.getFirstName()))
 			return false;
-		if (id == null) {
-			if (other.id != null)
+		if (getID() == null) {
+			if (other.getID() != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!getID().equals(other.getID()))
 			return false;
-		if (surname == null) {
-			if (other.surname != null)
+		if (getSurname() == null) {
+			if (other.getSurname() != null)
 				return false;
-		} else if (!surname.equals(other.surname))
+		} else if (!getSurname().equals(other.getSurname()))
 			return false;
 		return true;
 	}

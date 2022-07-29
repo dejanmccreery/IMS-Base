@@ -43,12 +43,12 @@ public class CustomerController implements CrudController<Customer> {
 	 */
 	@Override
 	public Customer create() {
-		LOGGER.info("Please enter a first name");
+		LOGGER.info("Please enter a first name: ");
 		String firstName = utils.getString();
-		LOGGER.info("Please enter a surname");
+		LOGGER.info("Please enter a surname: ");
 		String surname = utils.getString();
 		Customer customer = customerDAO.create(new Customer(firstName, surname));
-		LOGGER.info("Customer created");
+		LOGGER.info("Customer created.");
 		return customer;
 	}
 
@@ -57,27 +57,46 @@ public class CustomerController implements CrudController<Customer> {
 	 */
 	@Override
 	public Customer update() {
-		LOGGER.info("Please enter the id of the customer you would like to update");
+		LOGGER.info("Please enter the ID of the customer you would like to update: ");
 		Long id = utils.getLong();
-		LOGGER.info("Please enter a first name");
+
+		if (!checkID(id)) return null;
+
+		LOGGER.info("Please enter a first name: ");
 		String firstName = utils.getString();
-		LOGGER.info("Please enter a surname");
+		LOGGER.info("Please enter a surname: ");
 		String surname = utils.getString();
 		Customer customer = customerDAO.update(new Customer(id, firstName, surname));
-		LOGGER.info("Customer Updated");
+		LOGGER.info("Customer successfully updated.");
 		return customer;
+
 	}
 
 	/**
-	 * Deletes an existing customer by the id of the customer
+	 * Deletes an existing customer using the id of the customer
 	 * 
 	 * @return
 	 */
 	@Override
 	public int delete() {
-		LOGGER.info("Please enter the id of the customer you would like to delete");
+		LOGGER.info("Please enter the ID of the customer you would like to delete: ");
 		Long id = utils.getLong();
+
+		if (!checkID(id)) return 0;
+
 		return customerDAO.delete(id);
+	}
+
+	private boolean checkID(Long id) {
+		List<Customer> customers = customerDAO.readAll();
+		int count = 0;
+		for (Customer customer : customers){
+			if (customer.getID() == id) count++;
+		}
+		if (count == 0) {
+			LOGGER.info("Customer does not exist");
+			return false;
+		} else return true;
 	}
 
 }

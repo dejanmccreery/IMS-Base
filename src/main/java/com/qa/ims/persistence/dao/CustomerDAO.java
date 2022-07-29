@@ -20,9 +20,9 @@ public class CustomerDAO implements Dao<Customer> {
 
 	@Override
 	public Customer modelFromResultSet(ResultSet resultSet) throws SQLException {
-		Long id = resultSet.getLong("id");
-		String firstName = resultSet.getString("first_name");
-		String surname = resultSet.getString("surname");
+		Long id = resultSet.getLong("customer_id");
+		String firstName = resultSet.getString("firstname");
+		String surname = resultSet.getString("lastname");
 		return new Customer(id, firstName, surname);
 	}
 
@@ -35,7 +35,7 @@ public class CustomerDAO implements Dao<Customer> {
 	public List<Customer> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM customers");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM customer");) {
 			List<Customer> customers = new ArrayList<>();
 			while (resultSet.next()) {
 				customers.add(modelFromResultSet(resultSet));
@@ -51,7 +51,8 @@ public class CustomerDAO implements Dao<Customer> {
 	public Customer readLatest() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM customers ORDER BY id DESC LIMIT 1");) {
+				ResultSet resultSet = statement.executeQuery(
+						"SELECT * FROM customer ORDER BY customer_id DESC LIMIT 1");) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -69,8 +70,9 @@ public class CustomerDAO implements Dao<Customer> {
 	@Override
 	public Customer create(Customer customer) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO customers(first_name, surname) VALUES (?, ?)");) {
+				PreparedStatement statement = connection.prepareStatement(
+						"INSERT INTO customer(firstname, lastname) VALUES (?, ?)");
+			) {
 			statement.setString(1, customer.getFirstName());
 			statement.setString(2, customer.getSurname());
 			statement.executeUpdate();
@@ -78,6 +80,7 @@ public class CustomerDAO implements Dao<Customer> {
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
+			LOGGER.info("Could not create new customer.");
 		}
 		return null;
 	}
@@ -85,7 +88,9 @@ public class CustomerDAO implements Dao<Customer> {
 	@Override
 	public Customer read(Long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("SELECT * FROM customers WHERE id = ?");) {
+				PreparedStatement statement = connection.prepareStatement(
+						"SELECT * FROM customer WHERE customer_id = ?");
+			) {
 			statement.setLong(1, id);
 			try (ResultSet resultSet = statement.executeQuery();) {
 				resultSet.next();
@@ -94,6 +99,7 @@ public class CustomerDAO implements Dao<Customer> {
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
+			LOGGER.info("Attempt failed.");
 		}
 		return null;
 	}
@@ -108,13 +114,15 @@ public class CustomerDAO implements Dao<Customer> {
 	@Override
 	public Customer update(Customer customer) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection
-						.prepareStatement("UPDATE customers SET first_name = ?, surname = ? WHERE id = ?");) {
+				PreparedStatement statement = connection.prepareStatement(
+						"UPDATE customer SET firstname = ?, lastname = ? WHERE customer_id = ?"
+					);
+			) {
 			statement.setString(1, customer.getFirstName());
 			statement.setString(2, customer.getSurname());
-			statement.setLong(3, customer.getId());
+			statement.setLong(3, customer.getID());
 			statement.executeUpdate();
-			return read(customer.getId());
+			return read(customer.getID());
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
@@ -128,10 +136,13 @@ public class CustomerDAO implements Dao<Customer> {
 	 * @param id - id of the customer
 	 */
 	@Override
-	public int delete(long id) {
+	public int delete(Long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("DELETE FROM customers WHERE id = ?");) {
+				PreparedStatement statement = connection.prepareStatement(
+							"DELETE FROM customer WHERE customer_id = ?");
+			) {
 			statement.setLong(1, id);
+			LOGGER.info("Customer successfully deleted");
 			return statement.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.debug(e);
