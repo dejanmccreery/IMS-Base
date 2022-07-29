@@ -43,10 +43,8 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "id:" + id + " first name:" + firstName + " surname:" + surname;
+		return "ID: " + id + " | First Name: " + firstName + " | Surname: " + surname;
 	}
-
-	public String repr() { return "id: " + id + "| first name: " + firstName + "| surname: " + surname; }
 
 	@Override
 	public int hashCode() {
