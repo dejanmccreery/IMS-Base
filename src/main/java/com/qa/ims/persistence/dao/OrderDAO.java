@@ -5,8 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 import com.qa.ims.persistence.domain.Item;
@@ -25,9 +25,8 @@ public class OrderDAO implements Dao<Order> {
     public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
         Long id = resultSet.getLong("order_id");
         Long customerID = resultSet.getLong("customer_id");
-        LocalDate date  = resultSet.getDate("order_date").toLocalDate();
-        Double value = resultSet.getDouble("order_value");
-        return new Order(id, customerID, value, date);
+        Date date  = resultSet.getDate("order_date");
+        return new Order(id, customerID, date);
     }
 
     /**
@@ -76,22 +75,11 @@ public class OrderDAO implements Dao<Order> {
     public Order create(Order order) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     "INSERT INTO order(customer_id, order_date) VALUES (?, ?)");
-        ) {
-            statement.setLong(1, order.getCustomerID());
-            statement.setDouble(2, order.getValue());
-            statement.executeUpdate();
-
-            for ()
-
-            try (PreparedStatement statement2 = connection.prepareStatement(
-                // inserting into all columns of order_item hence not declaring
-                        "INSERT INTO order_item VALUES (?, ?, ?)")
+                     "INSERT INTO orders(customer_id, order_date) VALUES (?, ?)");
             ) {
-                statement2.
-            }
-
-
+            statement.setLong(1, order.getCustomerID());
+            statement.setDate(2, order.getDate());
+            statement.executeUpdate();
             return readLatest();
         } catch (Exception e) {
             LOGGER.debug(e);
@@ -104,7 +92,7 @@ public class OrderDAO implements Dao<Order> {
     public Order read(Long id) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     "SELECT * FROM orders WHERE id = ?");
+                     "SELECT * FROM orders WHERE order_id = ?");
         ) {
             statement.setLong(1, id);
             try (ResultSet resultSet = statement.executeQuery();) {
@@ -118,29 +106,13 @@ public class OrderDAO implements Dao<Order> {
         return null;
     }
 
-    /**
-     * Updates an item in the database
-     *
-     * @param item - takes in an item object, the id field will be used to
-     *                 update that item in the database
-     * @return
-     */
+
     @Override
-    public Item update(Item item) {
-        try (Connection connection = DBUtils.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(
-                     "UPDATE item SET item_name = ?, item_value = ? WHERE id = ?");
-        ) {
-            statement.setString(1, item.getName());
-            statement.setDouble(2, item.getValue());
-            statement.setLong(3, item.getID());
-            statement.executeUpdate();
-            return read(item.getID());
-        } catch (Exception e) {
-            LOGGER.debug(e);
-            LOGGER.error(e.getMessage());
-        }
-        return null;
+    public Order update(Order order) {
+        return null; //rendered redundant by OrderItemDAO but I have to keep it or the programme
+        // shouts at me. opinionated individuals on Stack Overflow said that ignoring a method
+        // implemented by the Dao interface destroys the entire purpose of interfaces
+        // so I wasted hours trying to implement the easier code through this
     }
 
     /**
@@ -149,9 +121,10 @@ public class OrderDAO implements Dao<Order> {
      * @param id - id of the item
      */
     @Override
-    public int delete(long id) {
+    public int delete(Long id) {
         try (Connection connection = DBUtils.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM item WHERE id = ?");
+             PreparedStatement statement = connection.prepareStatement(
+                     "DELETE FROM orders WHERE order_id = ?");
         ) {
             statement.setLong(1, id);
             return statement.executeUpdate();
