@@ -1,4 +1,5 @@
 Coverage: 34%
+
 # IMS Project
 
 This is an inventory management system that offers CRUD functionality for 3 entities within the system - Customers, Orders, and the Items within these orders.
@@ -78,6 +79,7 @@ We use [SemVer](http://semver.org/) for versioning.
 * **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/christophperrins)
 * **Dejan McCreery** - *Project* - [dejanmccreery](https://github.com/dejanmccreery)
 
+
 ## License
 
 This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md) file for details 
@@ -85,6 +87,7 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 *For help in [Choosing a license](https://choosealicense.com/)*
 
 ## Acknowledgments
+
 
 * The folks at [QACTrainers](https://github.com/QACTrainers) who wrote the IMS-Starter class this app is based on
 * Inspiration
