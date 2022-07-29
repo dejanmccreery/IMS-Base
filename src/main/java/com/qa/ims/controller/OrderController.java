@@ -126,6 +126,14 @@ public class OrderController implements CrudController<Order> {
         return orderDAO.delete(id);
     }
 
+    public double calculcateOrderValue(List<OrderItem> items) {
+        Double totalPrice = Double.valueOf(0);
+        for (OrderItem item : items) {
+            totalPrice += item.getValue();
+        }
+        return totalPrice;
+    }
+
     private void addItem(Long orderID, OrderItemDAO orderItemDAO, Order order) {
         LOGGER.info("Please enter the ID of the item you'd like to add: ");
         Long itemID = utils.getLong();
