@@ -56,11 +56,7 @@ public class OrderItem {
     }
 
     public String toString() {
-        return "Order ID: " + this.orderID + " Item ID: " + this.itemID
-                + " Quantity:" + this.quantity;
-    }
-
-    public String repr() { return "Order ID: " + this.orderID +
+        return "Order ID: " + this.orderID +
             "| Item ID: " + this.itemID + "| Quantity: " + this.quantity;
     }
 
