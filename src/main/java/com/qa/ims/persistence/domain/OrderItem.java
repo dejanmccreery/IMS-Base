@@ -40,6 +40,12 @@ public class OrderItem {
         this.value = value;
     }
 
+    public OrderItem(Long orderID, Long itemID, Double subtotal){
+        this.orderID = orderID;
+        this.itemID = itemID;
+        this.value = subtotal;
+    }
+
 
     public Map<Long, Integer> getItemIdQuantities() {
         return itemIdQuantities;

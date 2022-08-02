@@ -25,6 +25,14 @@ public class OrderItemDAO {
         return new OrderItem(orderID, itemID, quantity);
     }
 
+    public OrderItem calcRead(ResultSet resultSet) throws SQLException {
+        Double subtotal = resultSet.getDouble("subtotal");
+        Long itemID = resultSet.getLong("item_id");
+        Long orderID  = resultSet.getLong("order_id");
+
+        return new OrderItem(orderID, itemID, subtotal);
+    }
+
     /**
      * Adds an item to the order_item table
      *
@@ -72,22 +80,17 @@ public class OrderItemDAO {
     public List<OrderItem> readForCalculation(Long id) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     "SELECT o.order_id, i.item_id, o.quantity, i.item_value FROM order_item o\n" +
-                             "LEFT JOIN (\n" +
-                             "\tSELECT item_id, item_value\n" +
-                             "    FROM item\n" +
-                             ") AS i\n" +
-                             "ON o.item_id = i.item_id;");
+                     "SELECT oi.order_id, oi.item_id, oi.quantity * i.item_value AS subtotal FROM order_item oi , item i WHERE order_id = ?")
         ) {
             statement.setLong(1, id);
-            try (ResultSet resultSet = statement.executeQuery();) {
+            try (ResultSet resultSet = statement.executeQuery()) {
                 List<OrderItem> orderItems = new ArrayList<>();
                 while (resultSet.next()) {
-                    orderItems.add(modelFromResultSet(resultSet));
+                    orderItems.add(calcRead(resultSet));
                 }
                 return orderItems;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             LOGGER.debug(e);
             LOGGER.error(e.getMessage());
         }

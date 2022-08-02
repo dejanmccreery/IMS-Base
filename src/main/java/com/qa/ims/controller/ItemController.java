@@ -3,7 +3,6 @@ package com.qa.ims.controller;
 import java.util.List;
 
 import com.qa.ims.persistence.dao.ItemDAO;
-import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Item;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

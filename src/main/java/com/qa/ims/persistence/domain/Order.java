@@ -3,6 +3,7 @@ package com.qa.ims.persistence.domain;
 import com.qa.ims.persistence.dao.OrderItemDAO;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,9 +53,15 @@ public class Order {
 
 
 
-    public void calculateValue(Long orderID){
+    public Double calculateValue(Long orderID){
         OrderItemDAO oid = new OrderItemDAO();
-
+        List<OrderItem> ordaah;
+        ordaah = oid.readForCalculation(orderID);
+        Double total = 0.0;
+        for (OrderItem oi : ordaah) {
+           total +=  oi.getValue();
+        }
+        return total;
     }
 
     public Long getID() {
@@ -107,9 +114,10 @@ public class Order {
 
     @Override
     public String toString() {
+        DecimalFormat df = new DecimalFormat("0.00");
         return "Order ID: " + this.id +
                 " | Customer ID: " + this.customerID +
-                " | Value: " + this.value +
+                " | Value: " + df.format(this.value) +
                 " | Order Date: " + this.date;
     }
 

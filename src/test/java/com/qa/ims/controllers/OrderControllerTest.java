@@ -1,5 +1,4 @@
 //package com.qa.ims.controllers;
-//package com.qa.ims.controllers;
 //
 //
 //import java.util.ArrayList;
@@ -27,7 +26,7 @@
 //    private Utils utils;
 //
 //    @Mock
-//    private OrderDAO dao;dao
+//    private OrderDAO dao;
 //
 //    @InjectMocks
 //    private OrderController controller;
@@ -35,7 +34,7 @@
 //    @Test
 //    public void testCreate() {
 //        final String F_NAME = "barry", L_NAME = "scott";
-//        final Customer created = new Customer(F_NAME, L_NAME);
+//        final Customer created = new Order(F_NAME, L_NAME);
 //
 //        Mockito.when(utils.getString()).thenReturn(F_NAME, L_NAME);
 //        Mockito.when(dao.create(created)).thenReturn(created);
