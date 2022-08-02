@@ -3,6 +3,7 @@ package com.qa.ims.persistence.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.utils.DBUtils;
 import org.junit.jupiter.api.AfterEach;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class CustomerDAOTest {
 

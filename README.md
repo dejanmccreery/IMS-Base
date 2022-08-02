@@ -1,4 +1,5 @@
 Coverage: 11%
+
 # IMS Project
 
 This is an inventory management system that offers CRUD functionality for 3 entities within the system - Customers, Orders, and the Items within these orders.
@@ -63,6 +64,7 @@ We use [SemVer](http://semver.org/) for versioning.
 
 * **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/christophperrins)
 * **Dejan McCreery** - *Project* - [dejanmccreery](https://github.com/dejanmccreery)
+
 
 ## License
 
