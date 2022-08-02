@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 
 public class OrderTest {
 
-    @Test
-    public void testEquals() {
-        EqualsVerifier.simple().forClass(Order.class).verify();
-    }
+//    @Test
+//    public void testEquals() {
+//        EqualsVerifier.simple().forClass(Order.class).verify();
+//    }
 }

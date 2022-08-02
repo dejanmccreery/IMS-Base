@@ -34,15 +34,18 @@ Download the zip from this repo.
 
 ## Running the tests
 
-Automated tests have not been implemented across this programme due to time constraints and crunch fatigue.
+I would generally wipe and re-run the SQL schema for each test.
+The DBUtils class does not seem to be able to close the connection after each.
+It therefore uses existing data and messes up the tests.
+In future I may make these read the most recent ID to make the tests more dynamic.
 
 ### Unit Tests 
 
-Integration testing has not been implemented across this programme due to time constraints and crunch fatigue.
+Integration testing has not been properly implemented across this programme due to time constraints and crunch fatigue.
 
 ### Integration Tests 
 
-Integration testing has not been implemented across this programme due to time constraints and crunch fatigue.
+Integration testing has not been properly implemented across this programme due to time constraints and crunch fatigue.
 
 ## Deployment
 
